@@ -4,5 +4,5 @@ Helper scripts for phylogenetics. See the wiki for some workflows.
 
 ###Useful libraries
 Biopython
-[p4](p4.nhm.ac.uk)
-[Gram](gram.nhm.ac.uk)
+[p4](http://p4.nhm.ac.uk)
+[Gram](http://gram.nhm.ac.uk)
