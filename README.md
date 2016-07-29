@@ -1,6 +1,6 @@
 #phylo
 
-Helper scripts for phylogenetics. See the wiki for some workflows.
+Scripts for phylogenetics. See the wiki for some workflows.
 
 ###Useful libraries
 
