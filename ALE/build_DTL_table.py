@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 #read a directory of *rec files and output a table of all the data for downstream analysis
 #Usage: give directory containing rec files as first arg
 import os, re, sys
