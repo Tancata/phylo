@@ -14,7 +14,7 @@ Scripts for phylogenetics. See the wiki for some workflows.
 
 #####Phylogenetic trees, phylogenomics, comparative genomics
 
-[PhyloBayes](http://www.phylobayes.org): Bayesian trees, implements various mixture models including the author's own CAT and CAT+GTR. Also some molecular dating stuff. Implementations currently faster (fastest? only?) of some of the models.
+[PhyloBayes](http://www.phylobayes.org): Bayesian trees, implements various mixture models including the author's own CAT and CAT+GTR. Also some molecular dating stuff. Implementations currently faster (fastest? only?) of some of the models. Use the MPI version if at all possible.
 
 [IQ-Tree](http://www.cibiv.at/software/iqtree/): Very efficient maximum likelihood tree program. Supports fancier models than other ML packages (e.g. profile and matrix mixture models).
 
