@@ -2,7 +2,7 @@
 
 Scripts for phylogenetics. See the wiki for some workflows.
 
-###Useful libraries
+###Some useful libraries
 
 [Biopython](http://biopython.org/): Lots of useful libraries and functions for doing bioinformatics in Python.
 
@@ -10,3 +10,17 @@ Scripts for phylogenetics. See the wiki for some workflows.
 
 [Gram](http://gram.nhm.ac.uk): Another Peter Foster package. Programmatically draw phylogenetic trees (and in principle other simple vector graphics) with LaTeX and Python.
 
+####Some useful software
+
+#####Phylogenetic trees, phylogenomics, comparative genomics
+
+[PhyloBayes](http://www.phylobayes.org): Bayesian trees, implements various mixture models including the author's own CAT and CAT+GTR. Also some molecular dating stuff. Implementations currently faster (fastest? only?) of some of the models. Use the MPI version if at all possible.
+
+[IQ-Tree](http://www.cibiv.at/software/iqtree/): Very efficient maximum likelihood tree program. Supports fancier models than other ML packages (e.g. profile and matrix mixture models).
+
+[ALE](https://github.com/ssolo/ALE): Probabilistic gene tree-species reconciliation methods. Very nice.
+
+#####Sequence alignment, masking
+[MUSCLE](http://www.drive5.com/muscle/): Workhorse sequence aligner, pretty fast.
+
+[MAFFT](http://mafft.cbrc.jp/alignment/software/): Flexible sequence aligner, many options depending on size, other properties of the dataset.
