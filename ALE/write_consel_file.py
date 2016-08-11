@@ -37,7 +37,10 @@ for file in to_do:
         for dir in dirs:
             tag = "#" + dir
             lnl = extract_logl(dir + "/" + file)
-            trees[tag] = trees[tag] + str(lnl) + " "
+            if tag in trees:
+                trees[tag] = trees[tag] + str(lnl) + " "
+            else:
+                trees[tag] = str(lnl) + " "
         score_num += 1
 scores = ''
 print str(len(dirs)) + " " + str(score_num)
