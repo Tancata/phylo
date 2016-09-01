@@ -5,6 +5,7 @@
 import os, re, sys
 dirs = sys.argv[1:]
 trees = {}
+summed_lnls = {}
 
 if len(dirs) < 2:
     print "Usage: write_consel_file.py <space-delimited list of directories containing identically named reconciliation files to compare>"
@@ -39,10 +40,12 @@ for file in to_do:
             lnl = extract_logl(dir + "/" + file)
             if tag in trees:
                 trees[tag] = trees[tag] + str(lnl) + " "
+                summed_lnls[tag] = summed_lnls[tag] + float(lnl)
             else:
                 trees[tag] = str(lnl) + " "
+                summed_lnls[tag] = float(lnl)
         score_num += 1
 scores = ''
 print str(len(dirs)) + " " + str(score_num)
 for t in trees:
-    print t + "\n" + trees[t]
+    print t + "_" + str(summed_lnls[t]) + "\n" + trees[t]
