@@ -36,9 +36,18 @@ def extract_dtls(rec_file): #extract the total number of inferred duplications, 
     inh.close()
     return dtls
 
-print "GeneFam\tSupported_Hypothesis\tLikelihood\tDeltaSupport\tAlignment_Length\tSequences\tDuplications\tTransfers\tLosses\tSpeciations"
+def extract_species_num(rec_file):
+    inh = open(rec_file)
+    species_num = 0
+    for line in inh:
+        if line.startswith("S_terminal_branch"):
+            fields = re.split("\s+", line.rstrip())
+            if int(fields[-1]) > 0:
+                species_num += 1
+    return species_num
+
+print "GeneFam\tSupported_Hypothesis\tLikelihood\tDeltaSupport\tAlignment_Length\tSequences\tNum_Species\tDuplications\tTransfers\tLosses\tSpeciations"
 to_do = [file for file in os.listdir(dirs[0] + "/") if file.endswith("rec")]
-gene_fams = {} #contains extracted info about gene families. To be plotted, analysed later.
 for file in to_do:
     have_them = check_have_reconciliations(file, dirs) 
     if have_them == 1:
@@ -60,23 +69,16 @@ for file in to_do:
                 value = float(lnl)
             elif value > float(lnl):
                 delta = value - float(lnl)
-        gene_fams[file] = {}
 
         path_hypothesis = supported_hypothesis
         if supported_hypothesis == "No_lnl_difference": #this code invalid for more than 2 hypotheses: BE CAREFUL and REMOVE in that case!
             path_hypothesis = dirs[0]
 
-        gene_fams[file]['Hypothesis'] = supported_hypothesis
         #now calculate some properties of the gene family to compare among hypotheses
         aln = AlignIO.read(open("alignments/" + file[:-19]), "phylip-relaxed")
         aln_length = aln.get_alignment_length()
-        gene_fams[file]['Alignment Length'] = aln_length
         num_seqs = len(aln)
-        gene_fams[file]['Sequences'] = num_seqs
+        num_species = extract_species_num(path_hypothesis + "/" + file)
         dtls = extract_dtls(path_hypothesis + "/" + file) #obtain these estimates under the best supported hypothesis
-        gene_fams[file]['Duplications'] = float(dtls[0])
-        gene_fams[file]['Transfers'] = float(dtls[1])
-        gene_fams[file]['Losses'] = float(dtls[2])
-        gene_fams[file]['Speciations'] = float(dtls[3])
 
-        print file + "\t" + supported_hypothesis + "\t" + str(value) + "\t" + str(delta) + "\t" + str(aln_length) + "\t" + str(num_seqs) + "\t" + str(dtls[0]) + "\t" + str(dtls[1]) + "\t" + str(dtls[2]) + "\t" + str(dtls[3])
+        print file + "\t" + supported_hypothesis + "\t" + str(value) + "\t" + str(delta) + "\t" + str(aln_length) + "\t" + str(num_seqs) + "\t" + str(num_species) + "\t" + str(dtls[0]) + "\t" + str(dtls[1]) + "\t" + str(dtls[2]) + "\t" + str(dtls[3])
