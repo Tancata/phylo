@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#given a tree and a number of taxa n, print the n taxa that maximize the representation of branch lengths on the tree.
+#given a tree and a number of taxa n, print the n taxa that maximize the representation of branch lengths on the tree. This is supposed to help with a question like "I want a subsampled representation of this 3,000 taxon tree which retains as much of the phylogenetic diversity as possible but contains only n taxa"
 from Bio import Phylo
 from collections import defaultdict
 import sys
@@ -34,7 +34,6 @@ taxa = tree.get_terminals()
 #now do recursive drop
 num_taxa = len(taxa)
 while num_taxa > taxa_to_keep:
-    print "Iteration: " + str(num_taxa) + " " + str(taxa_to_keep)
     #get smallest distance, and drop one of the two taxa according to some other property, maybe
     to_prune = tree_distances(tree, taxa)
     tree.prune(to_prune)
