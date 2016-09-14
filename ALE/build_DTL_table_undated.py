@@ -12,4 +12,4 @@ for rec in to_do:
     for line in inh:
         if re.match("S\_.+?branch", line):
             fields = re.split("\t", line.rstrip())
-            print rec[:-8] + "\t" + fields[1] + "\t" + fields[2] + "\t" + fields[3] + "\t" + fields[4] + "\t" + fields[5]
+            print rec[:-8] + "\t" + fields[1] + "\t" + fields[2] + "\t" + fields[3] + "\t" + fields[4] + "\t" + fields[6]
