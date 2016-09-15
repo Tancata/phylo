@@ -76,3 +76,13 @@ while num_taxa > taxa_to_keep:
 for tip in taxa:
     print tip.name
 Phylo.draw_ascii(tree)
+
+aln_seqs = {} #totally unnecessary?
+for record in alignment:
+    aln_seqs[record.id] = str(record.seq)
+
+if len(sys.argv) > 3:
+    outh = open(sys.argv[3] + "_reduced.fasta", "w")
+    for tip in taxa:
+        outh.write(">" + str(tip.name) + "\n" + str(aln_seqs[tip.name]) + "\n")
+    outh.close()
