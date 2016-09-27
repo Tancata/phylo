@@ -25,12 +25,18 @@ def tree_distances(taxa, dists): #calculate summed-branch length distances for a
                     taxon_to_drop = taxa[i] #can setup a more complex selection here, e.g. if have genome size or completness, could drop the least complete
                 else:
                     #drop taxon with greater number of gaps
-                    gaps_i = gaps[taxa[i].name]
-                    gaps_j = gaps[taxa[j].name]
-                    if gaps_i > gaps_j:
-                        taxon_to_drop = taxa[i]
+                    if taxa[i].name in gaps and taxa[j].name in gaps:
+                        gaps_i = gaps[taxa[i].name]
+                        gaps_j = gaps[taxa[j].name]
+                        if gaps_i > gaps_j:
+                            taxon_to_drop = taxa[i]
+                        else:
+                            taxon_to_drop = taxa[j]
                     else:
-                        taxon_to_drop = taxa[j]
+                        if taxa[i].name not in gaps:
+                            taxon_to_drop = taxa[i]
+                        elif taxa[j].name not in gaps:
+                            taxon_to_drop = taxa[j]
                 smallest_dist = new_dist
     return taxon_to_drop
 
@@ -58,6 +64,8 @@ gaps = {}
 if len(sys.argv) > 3: #optional criterion to decide which taxon to drop, if supplied
     alignment = AlignIO.read(sys.argv[3], "fasta")
     gaps = count_gaps(alignment)
+#    for rec in gaps:
+#        print rec + "\t" + str(gaps[rec])
 
 #calculate all distances, then drop taxa with the smallest distance repeatedly until remaining number of taxa is n.
 
