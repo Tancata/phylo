@@ -24,3 +24,5 @@ Scripts for phylogenetics. See the wiki for some workflows.
 [MUSCLE](http://www.drive5.com/muscle/): Workhorse sequence aligner, pretty fast.
 
 [MAFFT](http://mafft.cbrc.jp/alignment/software/): Flexible sequence aligner, many options depending on size, other properties of the dataset.
+
+[Seqtools](http://www.sanger.ac.uk/science/tools/seqtools): Alignment viewer and editor (graphical), among other things.
