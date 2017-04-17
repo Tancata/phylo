@@ -81,7 +81,7 @@ for taxon in taxa:
 print target_taxon.name
 distances = distance_to_target(target_taxon, tree)
 
-#now drop seqs in order of decreasing distance from target, until desired number of sequences retained
+#now drop seqs in order of decreasing distance from target, until desired number of sequences retained. 
 
 num_taxa = len(taxa)
 sorted_distances = sorted(distances.items(), key=itemgetter(1))
