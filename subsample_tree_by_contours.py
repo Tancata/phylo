@@ -14,10 +14,11 @@ def get_mean_root_to_tip(tree):
     return np.mean(dists)
 
 def contour_node(root, node, contour): #check whether a node is immediately descendent of a contour  
-    #print node
-    #print tree.get_distance(root, node)
-    #print tree.get_distance(root, node.up)
     if (tree.get_distance(root, node) >= contour) and (tree.get_distance(root, node.up) <= contour):
+        #print "TRUE"
+        #print node
+        #print tree.get_distance(root, node)
+        #print tree.get_distance(root, node.up)
         return True
     else:
         return False
