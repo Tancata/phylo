@@ -47,10 +47,8 @@ print contours
 root = tree.get_tree_root()
 for c in contours:
     to_keep = []
-    seq_count = 0
     for node in tree.traverse():
         if contour_node(root, node, c):
-            seq_count += 1
             node_to_keep = pick_average_tip(node)
             to_keep.append(node_to_keep)
     print "Contour at " + str(c) + ", " + str(len(to_keep)) + " in total."
