@@ -1,11 +1,11 @@
 from __future__ import print_function
 var.verboseRead = 0
 var.warnReadNoFile = 0
-read('6.phy') #alignment
+read('sample.fa') #alignment
 d = Data()
 d.compoSummary()
 
-read('6.phy.contree') #fixed tree
+read('sample.tre') #fixed tree
 t = var.trees[0]
 t.data = d
 c1 = t.newComp(free=1, spec='empirical')
@@ -17,7 +17,7 @@ t.setModelThing(c1, node=0, clade=1)
 t.setModelThing(c2, node=0, clade=0)
 
 t.newRMatrix(free=0, spec='lg') #maybe try altering this
-t.setNGammaCat(nGammaCat=4)
+t.setNGammaCat(nGammaCat=1)
 t.setPInvar(free=0, val=0.0)
 
 t.optLogLike()
@@ -29,11 +29,11 @@ print(t.model.parts[0].comps[1].val)
 t.write()
 func.reseedCRandomizer(os.getpid())
 
-counts = [0] * 4
+counts = [0] * 20
 for rep in range(100):
     ancSt = t.ancestralStateDraw()
-    for i in range(4):
-        ch = 'acgt'[i]
+    for i in range(20):
+        ch = 'gavilmcrkhdenqstyfwp'[i]
         cnt = ancSt.count(ch)
         counts[i] += cnt
 mySum = float(sum(counts))
