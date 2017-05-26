@@ -1,11 +1,17 @@
 from __future__ import print_function
+import sys
+
+#Usage p4 2compML.py alignment rooted_tree > output
+
 var.verboseRead = 0
 var.warnReadNoFile = 0
-read('sample.fa') #alignment
+var.nexus_allowAllDigitNames = True
+
+read(sys.argv[2]) #alignment
 d = Data()
 d.compoSummary()
 
-read('sample.tre') #fixed tree
+read(sys.argv[3]) #fixed tree
 t = var.trees[0]
 t.data = d
 c1 = t.newComp(free=1, spec='empirical')
@@ -17,7 +23,8 @@ t.setModelThing(c1, node=0, clade=1)
 t.setModelThing(c2, node=0, clade=0)
 
 t.newRMatrix(free=0, spec='lg') #maybe try altering this
-t.setNGammaCat(nGammaCat=1)
+t.setNGammaCat(nGammaCat=4)
+t.newGdasrv(free=1, val=1.0)
 t.setPInvar(free=0, val=0.0)
 
 t.optLogLike()
