@@ -26,3 +26,11 @@ for rep in range(100):
 print("\nsymbol optimized      draws")
 for i in range(20):
     print("  %s      %.5f     %.4f" % (a.symbols[i], t.model.parts[0].comps[1].val[i], counts[i]/mySum))
+
+#calculate predicted OGT according to Zeldovich
+f_ivywrel = 0
+for i in range(20):
+    if a.symbols[i] in 'ivywrel':
+        f_ivywrel += t.model.parts[0].comps[1].val[i]
+print("F(IVYWREL) = " + str(f_ivywrel))
+print("T_opt estimate according to Zeldovich: " + str(937.0*float(f_ivywrel) - 335.0))
