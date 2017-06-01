@@ -1,7 +1,7 @@
 import sys
 
 var.nexus_allowAllDigitNames = True   # put it somewhere else
-rNum = 0
+rNum = int(sys.argv[4])
 read(sys.argv[2]) #the alignment
 read(sys.argv[3]) #the tree
 #read('simTree.nex')

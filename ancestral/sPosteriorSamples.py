@@ -1,7 +1,8 @@
+#modified from p4 example script of the same name
 import sys
 import numpy as np
 
-rNum = 0
+rNum = sys.argv[4]
 var.strictRunNumberChecking = False
 var.nexus_allowAllDigitNames = True   # put it somewhere else
 read(sys.argv[2])
@@ -54,6 +55,7 @@ for sampNum in range(100,200):
             freq = float(cnt) / float(len(asd))
             f_ivywrel += freq
     ogt_z = 937.0*f_ivywrel - 335.0
+    print(f_ivywrel)
     ogt_est.append(ogt_z)
             
 mySum = float(sum(counts))
