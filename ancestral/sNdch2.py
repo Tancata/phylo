@@ -1,5 +1,6 @@
 import sys
 
+var.nexus_allowAllDigitNames = True   # put it somewhere else
 rNum = 0
 read(sys.argv[2]) #the alignment
 read(sys.argv[3]) #the tree
@@ -28,9 +29,9 @@ sInterv = 100
 cpInterv = None
 
 m = Mcmc(t, nChains=4, runNum=rNum, sampleInterval=sInterv, checkPointInterval=cpInterv)
-m.prob.local = 2.
-m.prob.eTBR = 2.
-m.prob.root3 = 10.0
+m.prob.local = 0
+m.prob.eTBR = 0
+m.prob.root3 = 0
 m.prob.brLen = 0
 m.prob.allBrLens = 2.0
 m.prob.rMatrix = 0
