@@ -1,3 +1,6 @@
+var.nexus_allowAllDigitNames = True   # put it somewhere else
+var.doCheckForDuplicateSequences = False
+
 t = var.trees[0]
 a = var.alignments[0]
 t.data = Data()
