@@ -1,8 +1,9 @@
 #a version of ancestral sequence reconstruction where all we care about is F(IVYWREL), so alignment is recoded as 0s (non-IVYWREL) and 1s (IVYWREL)
 import sys
-var.verboseRead = 1
+#var.verboseRead = 1
 var.warnReadNoFile = 0
 var.nexus_allowAllDigitNames = True   # put it somewhere else
+var.doCheckForDuplicateSequences = False
 
 read(sys.argv[2])
 d = Data()
@@ -19,7 +20,7 @@ c2 = t.newComp(free=1, spec='empirical')
 t.setModelThing(c1, node=0, clade=1)
 t.setModelThing(c2, node=0, clade=0)
 
-t.newRMatrix(free=1, spec='ones') 
+t.newRMatrix(free=0, spec='ones') 
 t.setNGammaCat(nGammaCat=4)
 t.newGdasrv(free=1, val=1.0)
 t.setPInvar(free=0, val=0.0)
