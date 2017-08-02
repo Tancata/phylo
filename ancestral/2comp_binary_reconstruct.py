@@ -18,25 +18,22 @@ func.reseedCRandomizer(os.getpid())
 # I gave a name to var.alignments[0].  Also available as
 # d.parts[partNum].symbols, so d.parts[0].symbols are also 'arndcqeghilkmfpstwyv'
 
-print a.symbols
-quit()
+print(a.symbols)
 
-counts = [0] * 20
+counts = [0] * 2
 for rep in range(100):
     ancSt = t.ancestralStateDraw()
-    for i in range(20):
-        ch = a.symbols[i] # 'arndcqeghilkmfpstwyv'
+    for i in range(2):
+        ch = a.symbols[i] # '01'
         cnt = ancSt.count(ch)
         counts[i] += cnt
         mySum = float(sum(counts))
 print("\nsymbol optimized      draws")
-for i in range(20):
+for i in range(2):
     print("  %s      %.5f     %.4f" % (a.symbols[i], t.model.parts[0].comps[1].val[i], counts[i]/mySum))
 
 #calculate predicted OGT according to Zeldovich
 f_ivywrel = 0
-for i in range(20):
-    if a.symbols[i] in 'ivywrel':
-        f_ivywrel += t.model.parts[0].comps[1].val[i]
+f_ivywrel = t.model.parts[0].comps[1].val[1]
 print("F(IVYWREL) = " + str(f_ivywrel))
 print("T_opt estimate according to Zeldovich: " + str(937.0*float(f_ivywrel) - 335.0))
