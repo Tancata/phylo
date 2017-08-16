@@ -40,14 +40,20 @@ for n in t.iterNodes():
 #set comps. One for root, one each for LBCA and LACA, one each for archaeal domain and bacterial domain
 
 
-c0 = t.newComp(free=1, spec='empirical')
-t.setModelThing(c0, node=0, clade=1)
+#c0 = t.newComp(free=1, spec='empirical')
+#t.setModelThing(c0, node=0, clade=1)
 
 c1 = t.newComp(free=1, spec='empirical')
-t.setModelThing(c1, node=one_side, clade=0)
+t.setModelThing(c1, node=one_side, clade=1)
+
+c11 = t.newComp(free=1, spec='empirical')
+t.setModelThing(c11,node=one_side,clade=0)
 
 c2 = t.newComp(free=1, spec='empirical')
-t.setModelThing(c2, node=the_other, clade=0)
+t.setModelThing(c2, node=the_other, clade=1)
+
+c22 = t.newComp(free=1, spec='empirical')
+t.setModelThing(c22, node=the_other, clade=0)
 
 c3 = t.newComp(free=1, spec='empirical')
 t.setModelThing(c3, node=0, clade=0)

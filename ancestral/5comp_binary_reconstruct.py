@@ -15,6 +15,7 @@ print('and ...')
 print(t.model.parts[0].comps[2].val)
 print('and root comp...')
 print(t.model.parts[0].comps[3].val)
+print(t.model.parts[0].comps[4].val)
 t.write()
 t.draw()
 print(dir(t.model.parts[0]))
@@ -40,7 +41,7 @@ for i in range(2):
     print("  %s      %.5f     %.4f" % (a.symbols[i], t.model.parts[0].comps[2].val[i], counts[i]/mySum))
 
 #calculate predicted OGT according to Zeldovich
-for i in range(4):
+for i in range(5):
     print("For composition " + str(i))
     print(t.model.parts[0].comps[i].nNodes)
     f_ivywrel = 0
