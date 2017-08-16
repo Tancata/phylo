@@ -18,15 +18,14 @@ print(t.model.parts[0].comps[3].val)
 print(t.model.parts[0].comps[4].val)
 t.write()
 t.draw()
-print(dir(t.model.parts[0]))
-print(t.model.parts[0].ndch2_writeComps)
 func.reseedCRandomizer(os.getpid())
-print (t.model.parts[0])
 # The char "symbols", AAs in this case, are available as a.symbols; that is why
 # I gave a name to var.alignments[0].  Also available as
 # d.parts[partNum].symbols, so d.parts[0].symbols are also 'arndcqeghilkmfpstwyv'
 
-print(a.symbols)
+print("Node-to-comp mapping:")
+for n in t.iterNodes():
+    print(n.nodeNum,n.parts[0].compNum)
 
 counts = [0] * 2
 for rep in range(1000):
