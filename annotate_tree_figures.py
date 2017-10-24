@@ -33,5 +33,5 @@ for leaf in t.get_leaves():
         leaf_style = NodeStyle()
         leaf_style["fgcolor"] = "red"
         leaf_style["size"] = 15
-        leaf.set_style(l_style)
+        leaf.set_style(leaf_style)
 t.show(tree_style=ts)
