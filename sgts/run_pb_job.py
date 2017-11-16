@@ -2,8 +2,6 @@
 import subprocess, sys, time, re, os
 
 def start_pb_jobs(infile, bn):
-    #chain1 = subprocess.Popen(['pb -d ' + infile + ' -catfix C60 -lg ' + infile[:-4] + '_c60_lg_chain1'])
-    #chain2 = subprocess.Popen(['pb -d ' + infile + ' -catfix C60 -lg ' + infile[:-4] + '_c60_lg_chain2'])
     os.system('pb -d ' + infile + ' -catfix C60 -lg ' + bn + '_c60_lg_chain1 &')
     os.system('pb -d ' + infile + ' -catfix C60 -lg ' + bn + '_c60_lg_chain2 &')
     return
@@ -11,7 +9,7 @@ def start_pb_jobs(infile, bn):
 def check_convergence(infile, bn):
     #first check whether enough points have been sampled
     num_samples = sum(1 for line in open(bn + '_c60_lg_chain1.trace'))
-    if num_samples >= 50:
+    if num_samples >= 6667:
         burnin = int(float(num_samples)/4.0)
         #enough samples. Check bpcomp and tracecomp diagnostics
         #bp_proc = subprocess.Popen('bpcomp -o ' + infile[:-4] + '_c60_lg -x ' + str(burnin) + ' ' + infile[:-4] + '_c60_lg_chain1 ' + infile[:-4] + '_c60_lg_chain2',stdout=subprocess.PIPE) 
