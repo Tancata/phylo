@@ -9,4 +9,6 @@ if os.path.exists(outfile):
     os.unlink(outfile)
 
 for t in treelists:
-    os.system("tail -n +" + str(burnin) + " >> " + outfile)
+    os.system("tail -n +" + str(burnin) + " " + t + " >> " + outfile + ".tmp1")
+    os.system("awk '!(NR%10)' " + outfile + ".tmp1 > " + outfile) #thins the chain to take every 10th tree
+    os.unlink(outfile + ".tmp1")
