@@ -15,4 +15,4 @@ for t in treelists:
 os.system("awk '!(NR%10)' " + outfile + ".tmp1 > " + outfile) #thins the chain to take every 10th tree
 os.unlink(outfile + ".tmp1")
 os.system("mad.py " + outfile + " -m") #needs mad.py to be in your path
-os.system("grep -v '^>>\|^<' " + outfile + ".rooted > " + finalfile)
+os.system("grep -v '^>>\|^<|^>|^$' " + outfile + ".rooted > " + finalfile)
