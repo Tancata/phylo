@@ -40,6 +40,8 @@ root_probs = {}
 #now count how many times each unique set occurs
 #get unique sets
 unique_roots = set(frozenset(i) for i in roots)
+print(len(unique_roots))
+print(unique_roots)
 for root in unique_roots:
     sampled = 0
     for rset in roots:

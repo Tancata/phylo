@@ -39,12 +39,12 @@ def check_convergence(infile, bn):
                 if fields[0] == 'name':
                     continue
                 else:
-                    if float(fields[1]) >= 50.0:
+                    if float(fields[1]) >= 100.0:
                         print "Converged : " + fields[0] + " " + fields[1]
                         tr_res += 1
                     else:
                         print "Not converged yet : " + fields[1]
-                    if float(fields[2]) <= 0.3:
+                    if float(fields[2]) <= 0.1:
                         tr_res += 1
                         print "Converged : " + fields[0] + " " + fields[2]
                     else:
