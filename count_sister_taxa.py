@@ -3,6 +3,8 @@ from collections import defaultdict
 from operator import itemgetter
 from ete3 import Tree
 
+#usage: python count_sister_taxa.py bootstrapFile outputFile
+
 def parse_taxonomy(taxon_name): #given a taxon name, try to return whatever taxonomic info is available as a list starting with the highest level classification and going lower (or a map?)
     name_elements = re.split("\|", taxon_name)
     if (len(name_elements) < 7) or (len(name_elements) > 8):
@@ -118,7 +120,11 @@ for line in tree_sample_handle:
                         summary[label][element] = sister_tax[element]
 
 #now print out some kind of summary. For each label, the sorted list of sister taxa and their frequencies?
+
+outh = open(sys.argv[2], "w")
+
 for label in summary:
     sorted_sisters = sorted(summary[label].items(), key=itemgetter(1), reverse=True)
     for tup in sorted_sisters:
-        print label + "\t" + tup[0] + "\t" + str(tup[1])
+        outh.write(label + "\t" + tup[0] + "\t" + str(tup[1]) + "\n")
+outh.close()
