@@ -1,4 +1,5 @@
-import sys, re
+from __future__ import print_function
+import sys, re, numpy
 from collections import defaultdict
 from operator import itemgetter
 from ete3 import Tree
@@ -8,8 +9,8 @@ from ete3 import Tree
 def parse_taxonomy(taxon_name): #given a taxon name, try to return whatever taxonomic info is available as a list starting with the highest level classification and going lower (or a map?)
     name_elements = re.split("\|", taxon_name)
     if (len(name_elements) < 7) or (len(name_elements) > 8):
-        print name_elements
-        print "Nonstandard!"
+        print(name_elements)
+        print("Nonstandard!")
         quit()
     name_map = {}
     name_map['domain'] = name_elements[0]
@@ -40,11 +41,14 @@ name_to_tax_info = defaultdict(dict)
 taxa_names = []
 summary = defaultdict(dict)
 groups = []
+clades_per_group = defaultdict(list)
 
 target_label = 'genus' #edit this to make the comparisons at a desired taxonomic level
 
+treeNum = -1
 tree_sample_handle = open(sys.argv[1])
 for line in tree_sample_handle:
+    treeNum += 1
     tree = Tree(line.rstrip())
     if len(taxa_names) == 0: #it's the first tree, so set up some things
         for leaf in tree:
@@ -57,13 +61,15 @@ for line in tree_sample_handle:
     else:
         for leaf in tree:
             leaf.add_feature("tax", taxonomy[target_label]) #this adds a feature called tax to the leaf, with the attribute of the phylum name
-
+    for label in groups:
+        clades_per_group[label].append(0.0) #setup the clade counting for this particular tree
     tree.unroot() 
 
 #iterate over groups that are monophyletic for the taxon label of choice. Choose the smallest sister branch for the comparison. (Assume root is within the larger sister clade)
     for label in groups:
         #print label
         for node in tree.get_monophyletic(values=[label], target_attr="tax"):
+            clades_per_group[label][treeNum] += 1.0 
             #print node.get_ascii()
             sisters = node.get_sisters()
             if node.is_root():
@@ -124,7 +130,8 @@ for line in tree_sample_handle:
 outh = open(sys.argv[2], "w")
 
 for label in summary:
+    avg_num_clades = numpy.mean(clades_per_group[label])
     sorted_sisters = sorted(summary[label].items(), key=itemgetter(1), reverse=True)
     for tup in sorted_sisters:
-        outh.write(label + "\t" + tup[0] + "\t" + str(tup[1]) + "\n")
+        outh.write(label + "\t" + tup[0] + "\t" + str(tup[1]) + "\t" + str(avg_num_clades) + "\n")
 outh.close()
