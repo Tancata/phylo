@@ -6,22 +6,36 @@ from ete3 import Tree
 
 #usage: python count_sister_taxa.py bootstrapFile outputFile
 
+def map_species_to_cluster(cluster_file): #make a dict that links species name to the cluster to use for group compariosns
+    spname_to_cluster = {}
+    inh = open(cluster_file)
+    for line in inh:
+        if line.startswith("Names"):
+            continue
+        elements = re.split("\t", line)
+        e2 = re.split("\|", elements[1])
+        species = e2[-2]
+        cluster = e2[0]
+        spname_to_cluster[species] = cluster
+    return spname_to_cluster
+
 def parse_taxonomy(taxon_name): #given a taxon name, try to return whatever taxonomic info is available as a list starting with the highest level classification and going lower (or a map?)
     name_elements = re.split("\|", taxon_name)
-    if (len(name_elements) < 7) or (len(name_elements) > 8):
+    if (len(name_elements) < 8) or (len(name_elements) > 9):
         print(name_elements)
         print("Nonstandard!")
         quit()
     name_map = {}
-    name_map['domain'] = name_elements[0]
-    name_map['phylum'] = name_elements[1]
-    name_map['class'] = name_elements[2]
-    name_map['order'] = name_elements[3]
-    name_map['family'] = name_elements[4]
-    name_map['genus'] = name_elements[5]
-    name_map['species'] = name_elements[6]
-    if len(name_elements) == 8:
-        name_map['ncbi_id'] = name_elements[7]
+    name_map['cluster'] = name_elements[0]
+    name_map['domain'] = name_elements[1]
+    name_map['phylum'] = name_elements[2]
+    name_map['class'] = name_elements[3]
+    name_map['order'] = name_elements[4]
+    name_map['family'] = name_elements[5]
+    name_map['genus'] = name_elements[6]
+    name_map['species'] = name_elements[7]
+    if len(name_elements) == 9:
+        name_map['ncbi_id'] = name_elements[8]
     return name_map
 
 def summarize_taxonomy(name_list, tax_level): #take a list of names from a clade and summarize taxonomic info (labels and their frequencies)
@@ -43,7 +57,9 @@ summary = defaultdict(dict)
 groups = []
 clades_per_group = defaultdict(list)
 
-target_label = 'genus' #edit this to make the comparisons at a desired taxonomic level
+target_label = 'cluster' #edit this to make the comparisons at a desired taxonomic level
+
+#clusters = map_species_to_cluster("names_to-replace3.txt") #should just be baked into the tree names now, as first element
 
 treeNum = -1
 tree_sample_handle = open(sys.argv[1])
@@ -64,7 +80,7 @@ for line in tree_sample_handle:
     for label in groups:
         clades_per_group[label].append(0.0) #setup the clade counting for this particular tree
     tree.unroot() 
-
+    
 #iterate over groups that are monophyletic for the taxon label of choice. Choose the smallest sister branch for the comparison. (Assume root is within the larger sister clade)
     for label in groups:
         #print label
