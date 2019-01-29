@@ -76,7 +76,8 @@ for line in tree_sample_handle:
         groups = labels.keys()
     else:
         for leaf in tree:
-            leaf.add_feature("tax", taxonomy[target_label]) #this adds a feature called tax to the leaf, with the attribute of the phylum name
+            tax = name_to_tax_info[leaf.name] #this should set up taxonomy correctly...
+            leaf.add_feature("tax", tax[target_label]) #this adds a feature called tax to the leaf, with the attribute of the phylum name
     for label in groups:
         clades_per_group[label].append(0.0) #setup the clade counting for this particular tree
     tree.unroot() 
@@ -146,6 +147,8 @@ for line in tree_sample_handle:
 outh = open(sys.argv[2], "w")
 
 for label in summary:
+    print("Clades per group")
+    print(clades_per_group[label])
     avg_num_clades = numpy.mean(clades_per_group[label])
     sorted_sisters = sorted(summary[label].items(), key=itemgetter(1), reverse=True)
     for tup in sorted_sisters:
