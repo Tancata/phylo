@@ -147,8 +147,6 @@ for line in tree_sample_handle:
 outh = open(sys.argv[2], "w")
 
 for label in summary:
-    print("Clades per group")
-    print(clades_per_group[label])
     avg_num_clades = numpy.mean(clades_per_group[label])
     sorted_sisters = sorted(summary[label].items(), key=itemgetter(1), reverse=True)
     for tup in sorted_sisters:
