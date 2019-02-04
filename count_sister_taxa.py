@@ -4,7 +4,7 @@ from collections import defaultdict
 from operator import itemgetter
 from ete3 import Tree
 
-#usage: python count_sister_taxa.py bootstrapFile outputFile
+#usage: python count_sister_taxa.py MLFile bootstrapFile outputFile
 
 def map_species_to_cluster(cluster_file): #make a dict that links species name to the cluster to use for group compariosns
     spname_to_cluster = {}
@@ -59,25 +59,33 @@ clades_per_group = defaultdict(list)
 
 target_label = 'cluster' #edit this to make the comparisons at a desired taxonomic level
 
-#clusters = map_species_to_cluster("names_to-replace3.txt") #should just be baked into the tree names now, as first element
+#read the ML tree, set up the taxonomy stuff, and calculate the number of clades per label, and the sizes of those clades (to report at the end)
+ml_tree = Tree(sys.argv[1])
+for leaf in ml_tree:
+    taxonomy = parse_taxonomy(leaf.name)
+    name_to_tax_info[leaf.name] = taxonomy
+    taxa_names.append(leaf.name)
+    leaf.add_feature("tax", taxonomy[target_label])
+    labels[taxonomy[target_label]] = 1
+groups = labels.keys()
+
+#compute the number of clades per label in the ML tree, and their sizes
+ML_groups = defaultdict(list) #the list is the size of each clade, len(list) is the number of clades for that label in the ML tree
+for label in groups:
+    for node in ml_tree.get_monophyletic(values=[label], target_attr="tax"):
+        size_clade = 0
+        for leaf in node:
+            size_clade += 1
+        ML_groups[label].append(size_clade)
 
 treeNum = -1
-tree_sample_handle = open(sys.argv[1])
+tree_sample_handle = open(sys.argv[2])
 for line in tree_sample_handle:
     treeNum += 1
     tree = Tree(line.rstrip())
-    if len(taxa_names) == 0: #it's the first tree, so set up some things
-        for leaf in tree:
-            taxonomy = parse_taxonomy(leaf.name)
-            name_to_tax_info[leaf.name] = taxonomy
-            taxa_names.append(leaf.name)
-            leaf.add_feature("tax", taxonomy[target_label]) #this adds a feature called tax to the leaf, with the attribute of the phylum name
-            labels[taxonomy[target_label]] = 1 
-        groups = labels.keys()
-    else:
-        for leaf in tree:
-            tax = name_to_tax_info[leaf.name] #this should set up taxonomy correctly...
-            leaf.add_feature("tax", tax[target_label]) #this adds a feature called tax to the leaf, with the attribute of the phylum name
+    for leaf in tree:
+        tax = name_to_tax_info[leaf.name] #this should set up taxonomy correctly...
+        leaf.add_feature("tax", tax[target_label]) #this adds a feature called tax to the leaf, with the attribute of the phylum name
     for label in groups:
         clades_per_group[label].append(0.0) #setup the clade counting for this particular tree
     tree.unroot() 
@@ -144,11 +152,19 @@ for line in tree_sample_handle:
 
 #now print out some kind of summary. For each label, the sorted list of sister taxa and their frequencies?
 
-outh = open(sys.argv[2], "w")
+outh = open(sys.argv[3], "w")
 
 for label in summary:
+    num_groups = len(ML_groups[label])
+    size_str = ''
+    if num_groups == 1:
+        size_str = ML_groups[label][0]
+    else:
+        size_str = ','.join(str(x) for x in (sorted(ML_groups[label], reverse=True)))
     avg_num_clades = numpy.mean(clades_per_group[label])
+    total_num_clades = numpy.sum(clades_per_group[label])
     sorted_sisters = sorted(summary[label].items(), key=itemgetter(1), reverse=True)
     for tup in sorted_sisters:
-        outh.write(label + "\t" + tup[0] + "\t" + str(tup[1]) + "\t" + str(avg_num_clades) + "\n")
+        double_normalize = float(tup[1]) / float(total_num_clades) #normalize the frequencies by the total number of clades, to account for different bootstrap numbers/MCMC sample numbers
+        outh.write(label + "\t" + tup[0] + "\t" + str(tup[1]) + "\t" + str(avg_num_clades) + "\t" + str(double_normalize) + "\t" + str(size_str) + "\n")
 outh.close()
