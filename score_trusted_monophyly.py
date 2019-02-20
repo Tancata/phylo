@@ -49,9 +49,15 @@ def summarize_taxonomy(name_list, tax_level): #take a list of names from a clade
             breakdown[info[tax_level]] = 1.0 / float(total_size)
     return breakdown
 
+def check_for_favourite_taxonomy(name): #given a leaf name, return the favourite taxonomy label (a trusted group) or none if it is not part of the trusted group.
+    for label in believed:
+        if re.search(label, name.rstrip()):
+            return label
+    return "none"
+
 #check, in an ML tree, whether a set of favourite groups (a) are represented, (b) are monophyletic. Print a score for the tree corresponding to monoProp/totalProp
 
-believed = ['Thaumarchaeota', 'Crenarchaeota', 'Aigarchaeota', 'Korarchaeota']
+believed = ['Thaumarchaeota', 'Crenarchaeota'] #add trusted groups to check here
 
 labels = {}
 name_to_tax_info = defaultdict(dict)
@@ -66,11 +72,13 @@ target_label = 'cluster' #edit this to make the comparisons at a desired taxonom
 #might need to alter taxonomy assignment so that we check for the presence of the believed groups at all levels of the taxonomy.
 ml_tree = Tree(sys.argv[1])
 for leaf in ml_tree:
-    taxonomy = parse_taxonomy(leaf.name)
-    name_to_tax_info[leaf.name] = taxonomy
+    taxonomy = check_for_favourite_taxonomy(leaf.name)
     taxa_names.append(leaf.name)
-    leaf.add_feature("tax", taxonomy[target_label]) #this needs to label with the favoured group, or else "none" or something. TODO.
-    labels[taxonomy[target_label]] = 1
+    leaf.add_feature("tax", taxonomy) #this needs to label with the favoured group, or else "none" or something. TODO.
+    if taxonomy == "none":
+        continue
+    else:
+        labels[taxonomy] = 1
 groups = labels.keys()
 #need to add something above to get a list of the believed labels which are actually found in the tree. For the moment, we'll use groups (=labels.keys()).
 #for each of our favourite believed groups, ask whether all sequences from that group are monophyletic.
@@ -78,7 +86,15 @@ groups = labels.keys()
 total_believed_groups = len(groups)
 mono_believed_groups = 0
 for label in groups:
-    if ml_tree.check_monophyly(values=[label], target_attr="tax", unrooted=True):
+    val = ml_tree.check_monophyly(values=[label], target_attr="tax", unrooted=True)
+    #print(val)
+    print(label + "\t" + str(val[0]) + "\t" + str(val[1]))
+    if val[0] == True:
         mono_believed_groups += 1
+    else:
+        for ele in val[2]:
+            print(ele.get_ascii())
+    #    mono_believed_groups += 1
+    #    print(label)
 
-print(sys.argv[1] + " score: " + float(mono_believed_groups)/float(total_believed_groups))
+print(sys.argv[1] + " score: " + str(float(mono_believed_groups)/float(total_believed_groups)))
