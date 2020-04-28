@@ -15,11 +15,13 @@ From within a directory containing the ALE output files suffix “.uml_rec”:
 ```
 
 #### Use ALE to compare likelihoods of rooted species trees
-To produce a consel input file from gene tree-species tree reconciliations for testing likelihood of different species trees:
+
+To produce a consel input file from gene tree-species tree reconciliations for testing likelihood of different species trees, use the following command. `<ALE_output_with_species_tree_*>` refers to a directory containing all of the ALE output files (uml_rec files) obtained from running ALEml_undated with a given rooted species tree.
+
 ```
 ./write_consel_file.py  <ALE_output_with_species_tree_A> <ALE_output_with_species_tree_B> > <Consel_input.mt>
 ```
-This command writes a ".mt" file that can be used as input to CONSEL, which implements various statistical phylogenetic tree selection tests. The idea of linking ALE to CONSEL (and then, for example, performing an approximately-unbiased (AU) test) is to treat the ALE gene family likelihoods estimated under a particular rooted species tree in the same way as site likelihoods under a particular unrooted tree in a regular tree selection setting.  
+This command writes a ".mt" file that can be used as input to CONSEL, which implements various statistical phylogenetic tree selection tests. The idea of linking ALE to CONSEL (and then, for example, performing an approximately-unbiased (AU) test) is to treat the ALE gene family likelihoods estimated under a particular rooted species tree in the same way as site likelihoods under a particular unrooted tree in a regular tree selection setting. That is, the gene family likelihoods associated with a set of rooted species trees can be used estimate a confidence set of trees.  
 
 *NOTE:* The order of the "items" in the resulting CONSEL input file is arbitrary (in the current version). CONSEL numbers the "items" being compared from 1..n in the order they appear in the input file, so make sure to check this when interpreting the eventual CONSEL output. 
 
@@ -27,21 +29,23 @@ This command writes a ".mt" file that can be used as input to CONSEL, which impl
 
 Creates a protein fasta file containing the medoid of each gene family.
 Usage:
-From within a directory containing the directory “fasta” containing gene family protein fasta sequences with the suffix “.fa”
+From within a directory containing the directory “fasta” containing gene family protein fasta sequences with the suffix “.fa”.
 ```
 ./pick_medoid_for_gene_cluster.py
 ```
 
-#### Create reconciliation-based ancestral reconstructions
+#### Create reconciliation-based ancestral gene content reconstructions
 
-There are a number of ways this could be done. In Sheridan et al. (2020) biorxiv (in submission), the following approach was used. Note that node numbers refer to the numbering used in the rooted species tree map that appears at the beginning of any ALEml_undated .uml_rec output file.
+In Sheridan et al. (2020) biorxiv (in submission), the following approach was used. Note that node numbers refer to the numbering used in the rooted species tree map that appears at the beginning of any ALEml_undated .uml_rec output file.
 
 To produce an ancestor reconstruction at a given branch:
 
 Usage:
 ```
-gene_copies_at_node.py <reconciled_directory> <branch_of_interest> <representative_sequences> <probablistic_cutoff> > <score_of_each_HG_at_given_node>
+gene_copies_at_node.py <reconciled_directory> <node_of_interest> <representative_sequences> <probablistic_cutoff> > <score_of_each_gene_family_at_given_node>
 ```
+
+Here, `<reconciled_directory>` refers to a directory containing the ALEml_undated output files (uml_rec files) associated with an optimal rooted species tree. Node of interest is the node number for which the gene content probabilities should be obtained. `<representative_sequences>` refers to an (optional) set of representative sequences, for use in subsequent annotation.
 To create a protein fasta file (containing medoid representatives, for example for annotation) of genes gained between two branches:
 
 Usage:
