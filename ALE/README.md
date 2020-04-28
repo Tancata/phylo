@@ -4,7 +4,7 @@
 
 ### Usage/installation/dependency notes
 
-All of these scripts run with just the Python 2.7.x standard library available. Unless otherwise indicated, they are simple scripts for parsing output from ALEml_undated runs, or for preparing input files for other programs, such as CONSEL (http://stat.sys.i.kyoto-u.ac.jp/prog/consel/).
+Unless otherwise indicated, these are simple Python 2.7.x scripts for parsing output from ALEml_undated runs, or for preparing input files for other programs, such as CONSEL (http://stat.sys.i.kyoto-u.ac.jp/prog/consel/). Some of these scripts were used in the analyses reported in Sheridan et al. (2020), as indicated below.
 
 #### Quantify mechanisms of genome content change
 To produce a table with the number of duplications, transfers, losses and originations on each branch.
