@@ -8,7 +8,7 @@ Unless otherwise indicated, these are simple Python 2.7.x scripts for parsing ou
 
 #### Estimate numbers and types of genome content change
 To produce a table with the number of duplications, transfers, losses and originations on each branch.
-Usage:
+
 From within a directory containing the ALE output files suffix “.uml_rec”:
 ```
 ./branchwise_numbers_of_events.py > DTLO_table
@@ -28,7 +28,7 @@ This command writes a ".mt" file that can be used as input to CONSEL, which impl
 #### Pick representative (medoid) sequences for each gene family
 
 Creates a protein fasta file containing the medoid of each gene family.
-Usage:
+
 From within a directory containing the directory “fasta” containing gene family protein fasta sequences with the suffix “.fa”.
 ```
 ./pick_medoid_for_gene_cluster.py
@@ -40,7 +40,6 @@ In Sheridan et al. (2020) biorxiv (in submission), the following approach was us
 
 To produce an ancestor reconstruction at a given branch:
 
-Usage:
 ```
 gene_copies_at_node.py <reconciled_directory> <node_of_interest> <representative_sequences> <copy_number_cutoff> > <score_of_each_gene_family_at_given_node>
 ```
