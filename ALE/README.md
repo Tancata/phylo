@@ -42,18 +42,19 @@ To produce an ancestor reconstruction at a given branch:
 
 Usage:
 ```
-gene_copies_at_node.py <reconciled_directory> <node_of_interest> <representative_sequences> <probablistic_cutoff> > <score_of_each_gene_family_at_given_node>
+gene_copies_at_node.py <reconciled_directory> <node_of_interest> <representative_sequences> <copy_number_cutoff> > <score_of_each_gene_family_at_given_node>
 ```
 
-Here, `<reconciled_directory>` refers to a directory containing the ALEml_undated output files (uml_rec files) associated with an optimal rooted species tree. Node of interest is the node number for which the gene content probabilities should be obtained. `<representative_sequences>` refers to an (optional) set of representative sequences, for use in subsequent annotation.
+Here, `<reconciled_directory>` refers to a directory containing the ALEml_undated output files (uml_rec files) associated with an optimal rooted species tree. Node of interest is the node number for which the gene content probabilities should be obtained. `<representative_sequences>` refers to an (optional) set of representative sequences, for use in subsequent annotation. `<copy_number_cutoff>` indicates the minimum copy number needed to consider a gene family to have been present at a node (0.5 was used in Sheridan et al. (2020).)
+
 To create a protein fasta file (containing medoid representatives, for example for annotation) of genes gained between two branches:
 
-Usage:
 ```
 ./genes_gained_on_branch.py <ancestral_reconstruction_at_branch_A> <ancestral_reconstruction_at_branch_B> <output_fasta_file> <copy_number_increase_that_qualifes_as_gain> > <output_table>
 ```
+
 To create a protein fasta file consisting of the medoids of gene families predicted to have originated on a given branch: 
-Usage:
+
 ```
 ./gene_originations_at_node.py <ALE_output_directory branch_of_interest> <protein_fasta_output>
 ```
