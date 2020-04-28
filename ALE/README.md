@@ -4,9 +4,9 @@
 
 ### Usage/installation/dependency notes
 
-Unless otherwise indicated, these are simple Python 2.7.x scripts for parsing output from ALEml_undated runs, or for preparing input files for other programs, such as CONSEL (http://stat.sys.i.kyoto-u.ac.jp/prog/consel/). Some of these scripts were used in the analyses reported in Sheridan et al. (2020), as indicated below.
+Unless otherwise indicated, these are simple Python 2.7.x scripts for parsing output from ALEml_undated runs, or for preparing input files for other programs, such as CONSEL (http://stat.sys.i.kyoto-u.ac.jp/prog/consel/). Some of these scripts were used in the analyses reported in Sheridan et al. (2020), as indicated below. The usage lines below assume the scripts are executable, but they can be also run by invoking python (or python2 on some systems) --- `python branchwise_numbers_of_events.py > DTLO_table`, for example. They should be run from a bash prompt on a Linux/UNIX system; Mac OS X should work but has not been tested. 
 
-#### Quantify mechanisms of genome content change
+#### Estimate numbers and types of genome content change
 To produce a table with the number of duplications, transfers, losses and originations on each branch.
 Usage:
 From within a directory containing the ALE output files suffix “.uml_rec”:
