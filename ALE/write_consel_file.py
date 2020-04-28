@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #Read a directory of gene tree reconciliation files produced by ALEML_undated, pull out the gene family likelihoods, and write a (line?) of a CONSEL mt file.
-
+#NOTE: The order of "items" output by this script is arbitary. Check the output file carefully to determine the order in which CONSEL will label the resulting "items".
 import os, re, sys
 dirs = sys.argv[1:]
 trees = {}
