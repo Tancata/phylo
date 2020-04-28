@@ -49,8 +49,10 @@ Here, `<reconciled_directory>` refers to a directory containing the ALEml_undate
 To create a protein fasta file (containing medoid representatives, for example for annotation) of genes gained between two branches:
 
 ```
-./genes_gained_on_branch.py <ancestral_reconstruction_at_branch_A> <ancestral_reconstruction_at_branch_B> <output_fasta_file> <copy_number_increase_that_qualifes_as_gain> > <output_table>
+./genes_gained_on_branch.py <ancestral_reconstruction_at_node_A> <ancestral_reconstruction_at_node_B> <output_fasta_file> <copy_number_increase_that_qualifes_as_gain> > <output_table>
 ```
+
+Note that, in the above, `ancestral_reconstruction_at_node_A` refers to the output of running `gene_copies_at_node.py` on the node at one end of the branch of interest.
 
 To create a protein fasta file consisting of the medoids of gene families predicted to have originated on a given branch: 
 
