@@ -4,7 +4,7 @@
 
 ### Usage/installation/dependency notes
 
-Unless otherwise indicated, these are simple Python 2.7.x scripts for parsing output from ALEml_undated runs, or for preparing input files for other programs, such as CONSEL (http://stat.sys.i.kyoto-u.ac.jp/prog/consel/). Some of these scripts were used in the analyses reported in Sheridan et al. (2020), as indicated below. The usage lines below assume the scripts are executable, but they can be also run by invoking python (or python2 on some systems) --- `python branchwise_numbers_of_events.py > DTLO_table`, for example. They should be run from a bash prompt on a Linux/UNIX system; Mac OS X should work but has not been tested. 
+Unless otherwise indicated, these are simple Python 2.7.x scripts for parsing output from ALEml_undated runs, or for preparing input files for other programs, such as CONSEL (http://stat.sys.i.kyoto-u.ac.jp/prog/consel/). All of the scripts except those for medoid (representative sequence selection) run with just the Python standard library. The `pick_medoid_for_gene_cluster.py` script requires Biopython to be installed. Some of these scripts were used in the analyses reported in Sheridan et al. (2020), as indicated below. The usage lines below assume the scripts are executable, but they can be also run by invoking python (or python2 on some systems) --- `python branchwise_numbers_of_events.py > DTLO_table`, for example. They should be run from a bash prompt on a Linux/UNIX system; Mac OS X should work but has not been tested. 
 
 #### Estimate numbers and types of genome content change
 To produce a table with the number of duplications, transfers, losses and originations on each branch.
@@ -36,7 +36,7 @@ From within a directory containing the directory “fasta” containing gene fam
 
 #### Create reconciliation-based ancestral gene content reconstructions
 
-In Sheridan et al. (2020) biorxiv (in submission), the following approach was used. Note that node numbers refer to the numbering used in the rooted species tree map that appears at the beginning of any ALEml_undated .uml_rec output file.
+In Sheridan et al. (2020) biorxiv (in submission), the following approach was used. Note that node numbers refer to the numbering used in the rooted species tree map that appears at the beginning of any ALEml_undated .uml_rec output file. If you want a set of protein sequences at the node to functionally annotate, then the directory in which the script is run should contain a "medoid" directory, containing representative sequences for each gene family (for subsequent functional annotation). If you do not require this functionality, the associated code can be commented out of the script. 
 
 To produce an ancestor reconstruction at a given branch:
 
