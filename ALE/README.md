@@ -6,6 +6,8 @@
 
 Unless otherwise indicated, these are simple Python 2.7.x scripts for parsing output from ALEml_undated runs, or for preparing input files for other programs, such as CONSEL (http://stat.sys.i.kyoto-u.ac.jp/prog/consel/). All of the scripts except those for medoid (representative sequence selection) run with just the Python standard library. The `pick_medoid_for_gene_cluster.py` script requires Biopython to be installed. Some of these scripts were used in the analyses reported in Sheridan et al. (2020), as indicated below. The usage lines below assume the scripts are executable, but they can be also run by invoking python (or python2 on some systems) --- `python branchwise_numbers_of_events.py > DTLO_table`, for example. They should be run from a bash prompt on a Linux/UNIX system; Mac OS X should work but has not been tested. 
 
+All of these scripts should take <1s to run on a single core machine, except for the medoid computation, which took 4m9s on the files in "Example_data.tar.gz".
+
 #### Sample data for testing workflows
 
 To test that things are working as expected, it may be convenient to experiment with the files in Example_data.tar.gz in this repository. The results of running the scripts below on those files are summarized in https://github.com/Tancata/phylo/blob/master/ALE/example_outputs.md.
