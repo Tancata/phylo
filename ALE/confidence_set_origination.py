@@ -1,4 +1,4 @@
-#print a confidence set of gene family origination points based on LLs
+#print the probability that a gene family originated on each branch of the species tree, based on origination LLs
 from __future__ import division
 
 import re, sys
