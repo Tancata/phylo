@@ -4,7 +4,7 @@ from collections import defaultdict
 from operator import itemgetter
 from ete3 import Tree
 
-#usage: python count_sister_taxa.py MLFile bootstrapFile outputFile
+#usage: python splitscore.py treefile
 
 def map_species_to_cluster(cluster_file): #make a dict that links species name to the cluster to use for group compariosns
     spname_to_cluster = {}
