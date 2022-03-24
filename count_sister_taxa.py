@@ -60,7 +60,7 @@ clades_per_group = defaultdict(list)
 target_label = 'cluster' #edit this to make the comparisons at a desired taxonomic level
 
 #read the ML tree, set up the taxonomy stuff, and calculate the number of clades per label, and the sizes of those clades (to report at the end)
-ml_tree = Tree(sys.argv[1])
+ml_tree = Tree(sys.argv[1]) #note that ete3 treats this input tree as rooted
 for leaf in ml_tree:
     taxonomy = parse_taxonomy(leaf.name)
     name_to_tax_info[leaf.name] = taxonomy
