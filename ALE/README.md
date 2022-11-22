@@ -1,6 +1,6 @@
 # README: ALE helper scripts
 
-Note: some of these scripts are now out of date, as newer versions of ALE include additional fields in the output files which provide a more direct way to perform some of the tasks below. Check https://github.com/ak-andromeda/ALE_methods for some more up to date parsing scripts.
+22/11/22 --- Note: some of these scripts are now out of date, as newer versions of ALE include additional fields in the output files which provide a more direct way to perform some of the tasks below. Check https://github.com/ak-andromeda/ALE_methods for some more up to date parsing scripts.
 
 ### Some notes on using the scripts in this folder for extracting information from analyses using ALE (https://github.com/ssolo/ALE).
 
