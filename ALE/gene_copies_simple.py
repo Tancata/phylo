@@ -7,7 +7,7 @@ node = int(sys.argv[2])
 total_num_gene_copies = 0
 
 to_parse = [file for file in os.listdir(directory) if file.endswith("uml_rec")]
-print "GeneFam\tCopies"
+print("GeneFam\tCopies")
 for file in to_parse:
     inh = open(directory + file)
     for line in inh:
@@ -17,4 +17,4 @@ for file in to_parse:
                 print fam_name + "\t" + str(fields[-1])
                 total_num_gene_copies += float(fields[-1])
     inh.close()
-print "Total gene copies at node: " + str(total_num_gene_copies)
+print("Total gene copies at node: " + str(total_num_gene_copies))
